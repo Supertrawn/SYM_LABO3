@@ -1,4 +1,4 @@
-package ch.heigvd.iict.sym.a3dcompassapp;
+package ch.heigvd.iict.sym.a3dcompassapp.activity.compass;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,6 +10,8 @@ import android.content.Context;
 import android.opengl.GLU;
 import android.opengl.GLSurfaceView.Renderer;
 import android.util.Log;
+
+import ch.heigvd.iict.sym.a3dcompassapp.activity.compass.objects.ObjLoader;
 
 /**
  * Class used to render the 3d compass
