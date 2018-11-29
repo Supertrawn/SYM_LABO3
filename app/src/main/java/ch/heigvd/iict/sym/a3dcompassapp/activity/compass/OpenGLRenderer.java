@@ -11,8 +11,6 @@ import android.opengl.GLU;
 import android.opengl.GLSurfaceView.Renderer;
 import android.util.Log;
 
-import ch.heigvd.iict.sym.a3dcompassapp.objects.ObjLoader;
-
 /**
  * Class used to render the 3d compass
  */

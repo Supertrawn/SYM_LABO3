@@ -9,14 +9,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".CompassActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:name="ch.heigvd.iict.sym.a3dcompassapp.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:windowSoftInputMode="adjustPan" android:name="ch.heigvd.iict.sym.a3dcompassapp.activity.BarcodeActivity" />
+        <activity android:windowSoftInputMode="adjustPan" android:name="ch.heigvd.iict.sym.a3dcompassapp.activity.BeaconActivity" />
+        <activity android:windowSoftInputMode="adjustPan" android:name="ch.heigvd.iict.sym.a3dcompassapp.activity.NFCActivity" />
+        <activity android:windowSoftInputMode="adjustPan" android:name=".activity.compass.CompassActivity" />
     </application>
 
 </manifest>
