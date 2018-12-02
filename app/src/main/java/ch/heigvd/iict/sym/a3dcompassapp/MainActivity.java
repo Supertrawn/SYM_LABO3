@@ -5,8 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
-import ch.heigvd.iict.sym.a3dcompassapp.activity.BarcodeActivity;
-import ch.heigvd.iict.sym.a3dcompassapp.activity.BeaconActivity;
+import ch.heigvd.iict.sym.a3dcompassapp.activity.barcode.BarcodeActivity;
+import ch.heigvd.iict.sym.a3dcompassapp.activity.beacon.BeaconActivity;
 import ch.heigvd.iict.sym.a3dcompassapp.activity.nfc.NFCActivity;
 import ch.heigvd.iict.sym.a3dcompassapp.activity.compass.CompassActivity;
 

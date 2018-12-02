@@ -77,7 +77,7 @@ public class NFCActivity extends AppCompatActivity {
 
 
     private boolean isAuthValid(String login, String password) {
-        return login.equals(validLogin) && password.equals(validPassword) ? true : false;
+        return login.equals(validLogin) && password.equals(validPassword);
     }
 
 
