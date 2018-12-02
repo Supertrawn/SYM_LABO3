@@ -18,7 +18,7 @@
         </activity>
         <activity android:windowSoftInputMode="adjustPan" android:name="ch.heigvd.iict.sym.a3dcompassapp.activity.BarcodeActivity" />
         <activity android:windowSoftInputMode="adjustPan" android:name="ch.heigvd.iict.sym.a3dcompassapp.activity.BeaconActivity" />
-        <activity android:windowSoftInputMode="adjustPan" android:name="ch.heigvd.iict.sym.a3dcompassapp.activity.NFCActivity" />
+        <activity android:windowSoftInputMode="adjustPan" android:name="ch.heigvd.iict.sym.a3dcompassapp.activity.nfc.NFCActivity" />
         <activity android:windowSoftInputMode="adjustPan" android:name=".activity.compass.CompassActivity" />
     </application>
 
