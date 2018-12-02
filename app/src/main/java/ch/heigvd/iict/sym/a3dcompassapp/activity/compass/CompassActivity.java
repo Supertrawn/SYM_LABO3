@@ -1,6 +1,11 @@
 package ch.heigvd.iict.sym.a3dcompassapp.activity.compass;
 
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.opengl.GLSurfaceView;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
@@ -8,11 +13,18 @@ import android.view.WindowManager;
 
 import ch.heigvd.iict.sym.a3dcompassapp.R;
 
-public class CompassActivity extends AppCompatActivity {
+public class CompassActivity extends AppCompatActivity implements SensorEventListener {
 
     //opengl
-    private OpenGLRenderer opglr           = null;
-    private GLSurfaceView   m3DView         = null;
+    private OpenGLRenderer  opglr               = null;
+    private GLSurfaceView   m3DView             = null;
+    private SensorManager sensorManager         = null;
+    private Sensor accelerometer                = null;
+    private Sensor magnetometer                 = null;
+
+    private float[] rotMatrix                   = new float[16];
+    private float[] gravity                     = new float[3];
+    private float[] geomagnetic                 = new float[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +45,53 @@ public class CompassActivity extends AppCompatActivity {
 
         //init opengl surface view
         this.m3DView.setRenderer(this.opglr);
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        // unregister the sensor (désenregistrer le capteur)
+        sensorManager.unregisterListener(this, accelerometer);
+        sensorManager.unregisterListener(this, magnetometer);
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
+        sensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_UI);
+        super.onResume();
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            gravity = event.values;
+        }
+
+        if(event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+            geomagnetic = event.values;
+        }
+
+        if(SensorManager.getRotationMatrix(
+                rotMatrix,
+                null,
+                gravity,
+                geomagnetic)) {
+
+            this.opglr.swapRotMatrix(rotMatrix);
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
 
