@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Labo3 - 3D Compass template</string>
+    <string name="Login">Login</string>
+    <string name="Password">Password</string>
+    <string name="max_security">MAX SECURITY</string>
+    <string name="medium_security">MEDIUM SECURITY</string>
+    <string name="min_security">MIN SECURITY</string>
+
+    <string name="beacon_list_view_empty">Empty !</string>
+
 </resources>
