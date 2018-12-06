@@ -89,10 +89,8 @@ public class NFCActivity extends AppCompatActivity {
 
             String type = intent.getType();
             if (MIME_TEXT_PLAIN.equals(type)) {
-
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 new NdefReaderTask().execute(tag);
-
             } else {
                 Log.d(TAG, "Wrong mime type: " + type);
             }
@@ -167,7 +165,7 @@ public class NFCActivity extends AppCompatActivity {
             throw new  RuntimeException("Check your mime type.");
         }
 
-        nfcAdapter.enableForegroundDispatch(nfcActivity, pendingIntent, filters,techList);
+        nfcAdapter.enableForegroundDispatch(nfcActivity, pendingIntent, filters, techList);
 
     }
 
@@ -175,6 +173,11 @@ public class NFCActivity extends AppCompatActivity {
         nfcAdapter.disableForegroundDispatch(nfcActivity);
     }
 
+    /* *********************
+     *
+     * NFC READER TASK
+     *
+     *********************************/
     private class NdefReaderTask extends AsyncTask<Tag, Void, String> {
 
         @Override
