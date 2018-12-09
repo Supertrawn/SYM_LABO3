@@ -14,7 +14,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -49,7 +48,7 @@ public class NFCActivity extends AppCompatActivity {
         loginEditText = (EditText) findViewById(R.id.loginEditText);
         passwordEditText = (EditText) findViewById(R.id.passwordEditText);
         loginButton = (Button) findViewById(R.id.loginButton);
-        loginButton.setEnabled(false);
+        loginButton.setEnabled(true);
 
         //TODO use NFC to read information
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
@@ -90,7 +89,16 @@ public class NFCActivity extends AppCompatActivity {
             String type = intent.getType();
             if (MIME_TEXT_PLAIN.equals(type)) {
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-                new NdefReaderTask().execute(tag);
+                new NdefReaderTask(response -> {
+                    if(response.equals("test")){
+                        loginButton.setEnabled(true);
+                        //Toast TAG NFC OK
+                        return true;
+                    }else{
+                        //Toast wroong tag nf
+                        return false;
+                    }
+                }).execute(tag);
             } else {
                 Log.d(TAG, "Wrong mime type: " + type);
             }
@@ -103,7 +111,16 @@ public class NFCActivity extends AppCompatActivity {
 
             for (String tech : techList) {
                 if (searchedTech.equals(tech)) {
-                    new NdefReaderTask().execute(tag);
+                    new NdefReaderTask(response -> {
+                        if(response.equals("test")){
+                            loginButton.setEnabled(true);
+                            //Toast TAG NFC OK
+                            return true;
+                        }else{
+                            //Toast wroong tag nf
+                            return false;
+                        }
+                    }).execute(tag);
                     break;
                 }
             }
@@ -118,7 +135,6 @@ public class NFCActivity extends AppCompatActivity {
         }
 
         if(nfcAdapter.isEnabled()){
-            loginButton.setEnabled(true);
             return true;
         }else{
             Toast.makeText(this, "Please check if NFC is activated", Toast.LENGTH_SHORT);
@@ -171,73 +187,6 @@ public class NFCActivity extends AppCompatActivity {
 
     private void stopForeGroundDispatch(NFCActivity nfcActivity, NfcAdapter nfcAdapter) {
         nfcAdapter.disableForegroundDispatch(nfcActivity);
-    }
-
-    /* *********************
-     *
-     * NFC READER TASK
-     *
-     *********************************/
-    private class NdefReaderTask extends AsyncTask<Tag, Void, String> {
-
-        @Override
-        protected String doInBackground(Tag... params) {
-            Tag tag = params[0];
-
-            Ndef ndef = Ndef.get(tag);
-            if (ndef == null) {
-                // NDEF is not supported by this Tag.
-                return null;
-            }
-
-            NdefMessage ndefMessage = ndef.getCachedNdefMessage();
-
-            NdefRecord[] records = ndefMessage.getRecords();
-            for (NdefRecord ndefRecord : records) {
-                if (ndefRecord.getTnf() == NdefRecord.TNF_WELL_KNOWN && Arrays.equals(ndefRecord.getType(), NdefRecord.RTD_TEXT)) {
-                    try {
-                        return readText(ndefRecord);
-                    } catch (UnsupportedEncodingException e) {
-                        Log.e(TAG, "Unsupported Encoding", e);
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        private String readText(NdefRecord record) throws UnsupportedEncodingException {
-            /*
-             * See NFC forum specification for "Text Record Type Definition" at 3.2.1
-             *
-             * http://www.nfc-forum.org/specs/
-             *
-             * bit_7 defines encoding
-             * bit_6 reserved for future use, must be 0
-             * bit_5..0 length of IANA language code
-             */
-
-            byte[] payload = record.getPayload();
-
-            // Get the Text Encoding
-            String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
-
-            // Get the Language Code
-            int languageCodeLength = payload[0] & 0063;
-
-            // String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
-            // e.g. "en"
-
-            // Get the Text
-            return new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            if (result != null) {
-                System.out.println("Read content: " + result);
-            }
-        }
     }
 
 }

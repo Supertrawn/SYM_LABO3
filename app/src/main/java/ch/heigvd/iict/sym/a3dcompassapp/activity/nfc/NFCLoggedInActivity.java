@@ -12,7 +12,7 @@ import ch.heigvd.iict.sym.a3dcompassapp.R;
 public class NFCLoggedInActivity extends AppCompatActivity {
 
     Button securityMaxButton, securityMedButton, securityMinButton;
-    TextView securityLevel;
+    TextView level, securityLevelLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,42 +20,58 @@ public class NFCLoggedInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logged_in_nfc);
         setTitle("NFC");
 
+        int timerForSecurity;
+
         securityMaxButton = (Button) findViewById(R.id.maxSecurityButton);
         securityMedButton = (Button) findViewById(R.id.mediumSecurityButton);
         securityMinButton = (Button) findViewById(R.id.minSecurityButton);
-        securityLevel = (TextView) findViewById(R.id.securityLevel);
+        level = (TextView) findViewById(R.id.securityLevel);
 
-        SecurityLevel securityLevel = new SecurityLevel();
-        securityLevel.execute(Utils.AUTHENTICATE_MAX);
+        securityLevelLabel = (TextView) findViewById(R.id.securityLevelLabel);
+        securityLevelLabel.setText("Level de sécurité");
+
+        if(savedInstanceState != null){
+            timerForSecurity = savedInstanceState.getInt("AUTHENTICATE_MAX",0);
+            level.setText(timerForSecurity);
+        }
+
+        new SecurityLevel().execute(10);
 
     }
 
 
 
-    private class SecurityLevel extends AsyncTask<Integer, Integer, Integer>{
+    private class SecurityLevel extends AsyncTask<Integer, Integer, Boolean>{
 
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            //Timer is set, nothing to do
         }
 
         @Override
-        protected Integer doInBackground(Integer... integers) {
+        protected void doInBackground(Integer... integers) {
             // TODO Create Timer to low the security level every 30 seconds or so.
-            return null;
+
+            for (int i = 0; i < 10; i++){
+                publishProgress(i*100);
+            }
 
         }
 
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            securityLevel.setText(values[0]);
+            System.out.println(values);
+
+
+            //level.setText(values[0]);
         }
 
         @Override
-        protected void onPostExecute(Integer integer) {
-            super.onPostExecute(integer);
+        protected void onPostExecute(Boolean bool) {
+            super.onPostExecute(bool);
         }
     }
 }
