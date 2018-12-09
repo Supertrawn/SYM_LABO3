@@ -30,7 +30,7 @@ public class NFCActivity extends AppCompatActivity {
 
     private final String validLogin = "heig";
     private final String validPassword = "sym2018";
-    private final String nfcValue = "test";
+    private String nfcValue = "";
 
     private NfcAdapter nfcAdapter;
 
@@ -158,7 +158,6 @@ public class NFCActivity extends AppCompatActivity {
     @Override
     protected  void onPause() {
         stopForeGroundDispatch(this, nfcAdapter);
-
         super.onPause();
     }
 
