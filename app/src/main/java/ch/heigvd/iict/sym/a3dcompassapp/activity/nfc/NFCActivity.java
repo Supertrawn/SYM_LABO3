@@ -23,7 +23,6 @@ public class NFCActivity extends AppCompatActivity {
 
     private final String validLogin = "heig";
     private final String validPassword = "sym2018";
-    private String nfcValue = "test";
 
     private NfcAdapter nfcAdapter;
     private NFCReader nfcReader;

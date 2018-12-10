@@ -29,8 +29,6 @@ public class NFCLoggedInActivity extends AppCompatActivity {
 
         int timerForSecurity;
 
-        securityMaxButton = (Button) findViewById(R.id.maxSecurityButton);
-        securityMedButton = (Button) findViewById(R.id.mediumSecurityButton);
         securityMinButton = (Button) findViewById(R.id.reset);
         level = (TextView) findViewById(R.id.securityLevel);
 
@@ -82,7 +80,7 @@ public class NFCLoggedInActivity extends AppCompatActivity {
 
     private boolean checkNfcAdapter(){
         if(nfcAdapter == null){
-            Toast.makeText(this, "NFC is not supported on this device.", Toast.LENGTH_LONG);
+            Toast.makeText(this, "NFC is not supported on this device.", Toast.LENGTH_LONG).show();;
             finish();
             return false;
         }
@@ -90,7 +88,7 @@ public class NFCLoggedInActivity extends AppCompatActivity {
         if(nfcAdapter.isEnabled()){
             return true;
         }else{
-            Toast.makeText(this, "Please check if NFC is activated", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Please check if NFC is activated", Toast.LENGTH_SHORT).show();;
             finish();
             return false;
         }
@@ -107,7 +105,10 @@ public class NFCLoggedInActivity extends AppCompatActivity {
          * In our case this method gets called, when the user attaches a Tag to the device.
          */
         if(nfcReader.handleIntent(intent)){
-            Toast.makeText(this,"Augmentation du timer et du niveau de sécurité", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Niveau de sécurité augmenté", Toast.LENGTH_SHORT).show();
+            securityLevelLabel.setText("Niveau de sécurité: MAX");
+            timer.cancel();
+            timer.start();
         }
     }
     @Override

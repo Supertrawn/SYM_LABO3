@@ -22,7 +22,7 @@ public class NFCReader {
             if (MIME_TEXT_PLAIN.equals(type)) {
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 new NdefReaderTask(response -> {
-                    b =  response.equals("test");
+                    b =  response;
                     return true;
                 })
                 .execute(tag);
