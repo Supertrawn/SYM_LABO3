@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/minSecurityButton"
+        android:id="@+id/reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -50,7 +50,7 @@
 
 
     <TextView
-        android:id="@+id/securityLevelLabel"
+        android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="16dp"
         android:layout_marginStart="8dp"
@@ -62,7 +62,7 @@
         app:layout_constraintBottom_toTopOf="@+id/securityLevel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/minSecurityButton" />
+        app:layout_constraintTop_toBottomOf="@+id/reset" />
 
     <TextView
         android:id="@+id/securityLevel"

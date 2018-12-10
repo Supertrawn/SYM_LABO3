@@ -83,7 +83,6 @@ public class NdefReaderTask extends AsyncTask<Tag, Void, String> {
     protected void onPostExecute(String result) {
         if (result != null) {
             listener.handleServerResponse(result);
-            System.out.println("Read content: " + result);
         }
     }
 }
