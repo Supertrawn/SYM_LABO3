@@ -1,81 +1,38 @@
 package ch.heigvd.iict.sym.a3dcompassapp.activity.nfc;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.Locale;
 
 import ch.heigvd.iict.sym.a3dcompassapp.R;
 
 public class CountDownActivity extends AppCompatActivity {
-
-    TextView time;
-    Button reset;
-    CountDownTimer timer;
+    private static final long INITIAL_TIME = 10000;
+    private static final long COUNT_DOWN_INTERVAL = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
-        setTitle("NFC - Security");
+        setContentView(R.layout.activity_logged_in_nfc);
+        setTitle(getString(R.string.nfc_security_zone));
 
-        time = (TextView) findViewById(R.id.time);
-        time.setText("Ready");
-        reset = (Button) findViewById(R.id.reset);
+        TextView time = findViewById(R.id.time);
 
-        Long l = 10000l;
+        time.setText(getString(R.string.ready));
 
-        timer = new CountDownTimer(l, 1000) {
+        new CountDownTimer(INITIAL_TIME, COUNT_DOWN_INTERVAL) {
             @Override
             public void onTick(long millis ) {
-                time.setText("seconds remaining:" + (millis  / 1000));
+                time.setText(String.format(Locale.FRANCE, getString(R.string.seconds_remaining_time), millis  / COUNT_DOWN_INTERVAL));
             }
 
             @Override
             public void onFinish() {
-                time.setText("Done");
+                time.setText(getString(R.string.done));
             }
         }.start();
-
     }
-
-
-    private void cancelTimer(){
-        if(timer != null){
-            timer.cancel();
-        }
-    }
-
-
-    private class CountDownAsync extends AsyncTask<Long, Long, Long>{
-
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            time.setText("Ready");
-        }
-
-        @Override
-        protected Long doInBackground(Long... integers) {
-
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Long... values) {
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        protected void onPostExecute(Long integer) {
-            super.onPostExecute(integer);
-        }
-
-
-    }
-
 }

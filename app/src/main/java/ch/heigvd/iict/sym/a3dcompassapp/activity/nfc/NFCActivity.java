@@ -13,16 +13,14 @@ import ch.heigvd.iict.sym.a3dcompassapp.R;
 
 public class NFCActivity extends AppCompatActivity {
 
-    EditText loginEditText, passwordEditText;
-    Button loginButton;
+    private EditText loginEditText, passwordEditText;
+    private Button loginButton;
 
-    private final String validLogin = "heig";
-    private final String validPassword = "sym2018";
+    private static final String validLogin = "heig";
+    private static final String validPassword = "sym2018";
 
     private NfcAdapter nfcAdapter;
     private NFCReader nfcReader;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,19 +30,16 @@ public class NFCActivity extends AppCompatActivity {
 
 
         //initialize components
-        loginEditText = (EditText) findViewById(R.id.loginEditText);
-        passwordEditText = (EditText) findViewById(R.id.passwordEditText);
-        loginButton = (Button) findViewById(R.id.loginButton);
+        loginEditText = findViewById(R.id.loginEditText);
+        passwordEditText = findViewById(R.id.passwordEditText);
+        loginButton = findViewById(R.id.loginButton);
         loginButton.setEnabled(false);
 
-
-        //TODO use NFC to read information
         nfcReader = new NFCReader();
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
         checkNfcAdapter();
 
-        // TODO Add NFC validation before starting next intent.
         loginButton.setOnClickListener(v -> {
             if(isAuthValid(loginEditText.getText().toString(), passwordEditText.getText().toString())) {
 
@@ -71,7 +66,7 @@ public class NFCActivity extends AppCompatActivity {
 
     private boolean checkNfcAdapter(){
         if(nfcAdapter == null){
-            Toast.makeText(this, "NFC is not supported on this device.", Toast.LENGTH_LONG);
+            Toast.makeText(this, "NFC is not supported on this device.", Toast.LENGTH_LONG).show();
             finish();
             return false;
         }
@@ -79,7 +74,7 @@ public class NFCActivity extends AppCompatActivity {
         if(nfcAdapter.isEnabled()){
             return true;
         }else{
-            Toast.makeText(this, "Please check if NFC is activated", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Please check if NFC is activated", Toast.LENGTH_SHORT).show();
             finish();
             return false;
         }

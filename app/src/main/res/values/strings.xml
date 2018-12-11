@@ -11,5 +11,8 @@
     <string name="code_barres">Code barres</string>
     <string name="ibeacon">iBeacon</string>
     <string name="capteurs">Capteurs</string>
-
+    <string name="nfc_security_zone">NFC - Security Zone</string>
+    <string name="ready">Ready</string>
+    <string name="done">Done</string>
+    <string name="seconds_remaining_time">Seconds remaining : %d</string>
 </resources>

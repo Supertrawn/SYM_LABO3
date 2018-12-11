@@ -13,8 +13,6 @@ import android.widget.Toast;
 import ch.heigvd.iict.sym.a3dcompassapp.R;
 
 public class NFCLoggedInActivity extends AppCompatActivity {
-
-    Button securityMinButton;
     TextView level, securityLevelLabel;
     CountDownTimer timer;
 
@@ -28,8 +26,7 @@ public class NFCLoggedInActivity extends AppCompatActivity {
         setTitle("NFC");
 
         int timerForSecurity;
-
-        securityMinButton = (Button) findViewById(R.id.reset);
+        
         level = (TextView) findViewById(R.id.securityLevel);
 
         securityLevelLabel = (TextView) findViewById(R.id.time);
