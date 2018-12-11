@@ -3,6 +3,7 @@ package ch.heigvd.iict.sym.a3dcompassapp.activity.beacon;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -24,17 +25,15 @@ import java.util.List;
 import ch.heigvd.iict.sym.a3dcompassapp.R;
 
 public class BeaconActivity extends AppCompatActivity implements BeaconConsumer {
-    private BeaconManager           beaconManager   = null;
-    private List<Beacon>            beacons         = null;
-    private BeaconListViewAdaptater adapter         = null;
-
-    private static final String TAG = "MonitoringActivity";
+    private BeaconManager beaconManager;
+    private List<Beacon> beacons;
+    private BeaconListViewAdaptater adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beacon);
-        setTitle("iBeacon");
+        setTitle(getString(R.string.ibeacon));
 
         ListView beaconListView = findViewById(R.id.beacon_list_view);
         TextView empty = findViewById(R.id.beacon_list_empty);
@@ -106,9 +105,11 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
             Beacon beacon = getItem(position);
 
             //il ne reste plus qu'à remplir notre vue
-            viewHolder.rssi.setText("Rssi : " + beacon.getRssi());
-            viewHolder.minNumber.setText("Min numnber : " + beacon.getBeaconTypeCode());
-            viewHolder.majNumber.setText("Maj number : " + beacon.getBluetoothName());
+            if(beacon != null) {
+                viewHolder.rssi.setText(String.format(getString(R.string.rssi) + " : %s", beacon.getRssi()));
+                viewHolder.minNumber.setText(String.format(getString(R.string.min_number) + " : %s", beacon.getBeaconTypeCode()));
+                viewHolder.majNumber.setText(String.format(getString(R.string.max_number) + " : %s", beacon.getBluetoothName()));
+            }
 
             return convertView;
         }

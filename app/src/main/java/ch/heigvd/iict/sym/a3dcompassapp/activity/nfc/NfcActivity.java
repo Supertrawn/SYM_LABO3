@@ -1,26 +1,19 @@
 package ch.heigvd.iict.sym.a3dcompassapp.activity.nfc;
 
 import android.content.Intent;
-import android.nfc.NfcAdapter;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
 import ch.heigvd.iict.sym.a3dcompassapp.R;
 
-public class NFCActivity extends AppCompatActivity {
-
+public class NfcActivity extends NfcReaderActivity {
     private EditText loginEditText, passwordEditText;
     private Button loginButton;
 
     private static final String validLogin = "heig";
     private static final String validPassword = "sym2018";
-
-    private NfcAdapter nfcAdapter;
-    private NFCReader nfcReader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +27,15 @@ public class NFCActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         loginButton.setEnabled(false);
 
-        nfcReader = new NFCReader();
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-
-        checkNfcAdapter();
-
         loginButton.setOnClickListener(v -> {
             if(isAuthValid(loginEditText.getText().toString(), passwordEditText.getText().toString())) {
 
                 //Read NFC before starting new intent
-                Intent intent = new Intent(loginButton.getContext(), NFCLoggedInActivity.class);
-                intent.putExtra("AUTHENTICATE_MAX", Utils.AUTHENTICATE_MAX);
+                Intent intent = new Intent(loginButton.getContext(), NfcLoggedInActivity.class);
+                intent.putExtra("first_authorization_level", AuthorizationLevel.AUTHENTICATE_MAX);
                 loginButton.getContext().startActivity(intent);
+            } else {
+                Toast.makeText(this, getString(R.string.wrong_login_or_password), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -59,41 +49,11 @@ public class NFCActivity extends AppCompatActivity {
          *
          * In our case this method gets called, when the user attaches a Tag to the device.
          */
-        loginButton.setEnabled(nfcReader.handleIntent(intent));
-    }
-
-
-    private void checkNfcAdapter(){
-        if(nfcAdapter == null){
-            Toast.makeText(this, getString(R.string.nfc_not_supported), Toast.LENGTH_LONG).show();
-            finish();
-        }
-
-        if(!nfcAdapter.isEnabled()){
-            Toast.makeText(this, getString(R.string.check_nfc_activated), Toast.LENGTH_SHORT).show();
-            finish();
-        }
+        loginButton.setEnabled(getNfcReader().handleIntent(intent));
     }
 
     private boolean isAuthValid(String login, String password) {
         return login.equals(validLogin) && password.equals(validPassword);
     }
-
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        nfcReader.setupForegroundDispatch(this, nfcAdapter);
-    }
-
-
-    @Override
-    protected  void onPause() {
-        nfcReader.stopForeGroundDispatch(this, nfcAdapter);
-        super.onPause();
-    }
-
-
-
 }
 

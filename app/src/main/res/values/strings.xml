@@ -1,20 +1,32 @@
 <resources>
     <string name="app_name">Labo3 - 3D Compass template</string>
-    <string name="Login">Login</string>
-    <string name="Password">Password</string>
-    <string name="max_security">MAX SECURITY</string>
-    <string name="medium_security">MEDIUM SECURITY</string>
-    <string name="min_security">MIN SECURITY</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
 
-    <string name="beacon_list_view_empty">Empty !</string>
-    <string name="nfc">NFC</string>
-    <string name="code_barres">Code barres</string>
+    <!-- Main -->
+    <string name="main">Main</string>
+
+    <!-- BarcodeActivity -->
+    <string name="bar_code">Bar Code</string>
+    <string name="scan_qr_code">Scan QR Code</string>
+
+    <!-- BeaconActivity -->
     <string name="ibeacon">iBeacon</string>
-    <string name="capteurs">Capteurs</string>
+    <string name="rssi">Rssi</string>
+    <string name="min_number">Min number</string>
+    <string name="max_number">Max number</string>
+    <string name="beacon_list_view_empty">Empty !</string>
+
+    <!-- CompassActivity -->
+    <string name="compass">Compass</string>
+
+    <!-- NfcActivity -->
+    <string name="nfc">NFC</string>
     <string name="nfc_security_zone">NFC - Security Zone</string>
+    <string name="wrong_login_or_password">Wrong login or password</string>
     <string name="ready">Ready</string>
     <string name="done">Done</string>
-    <string name="seconds_remaining_time">Seconds remaining : %d</string>
+    <string name="seconds_remaining_time">Seconds remaining</string>
     <string name="nfc_not_supported">NFC is not supported on this device.</string>
     <string name="check_nfc_activated">Please check if NFC is activated</string>
     <string name="security_level">Security level</string>

@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import ch.heigvd.iict.sym.a3dcompassapp.activity.barcode.BarcodeActivity;
 import ch.heigvd.iict.sym.a3dcompassapp.activity.beacon.BeaconActivity;
-import ch.heigvd.iict.sym.a3dcompassapp.activity.nfc.NFCActivity;
+import ch.heigvd.iict.sym.a3dcompassapp.activity.nfc.NfcActivity;
 import ch.heigvd.iict.sym.a3dcompassapp.activity.compass.CompassActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,11 +21,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("Main");
+        setTitle(getString(R.string.main));
 
         btnNFC = findViewById(R.id.btnNFC);
         btnNFC.setOnClickListener(v -> {
-            Intent intent = new Intent(btnNFC.getContext(), NFCActivity.class);
+            Intent intent = new Intent(btnNFC.getContext(), NfcActivity.class);
             btnNFC.getContext().startActivity(intent);
         });
 

@@ -11,16 +11,16 @@ import com.google.zxing.integration.android.IntentResult;
 import ch.heigvd.iict.sym.a3dcompassapp.R;
 
 public class BarcodeActivity extends AppCompatActivity {
-    private IntentIntegrator integrator = null;
+    private IntentIntegrator integrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Code barres");
+        setTitle(getString(R.string.bar_code));
         setContentView(R.layout.activity_bar_code);
 
-        integrator = new IntentIntegrator(this); // `this` is the current Activity
-        integrator.setPrompt("Scan QR Code");
+        integrator = new IntentIntegrator(this);
+        integrator.setPrompt(getString(R.string.scan_qr_code));
         integrator.setCameraId(0);  // Use a specific camera of the device
         integrator.setBeepEnabled(false);
         integrator.setBarcodeImageEnabled(true);

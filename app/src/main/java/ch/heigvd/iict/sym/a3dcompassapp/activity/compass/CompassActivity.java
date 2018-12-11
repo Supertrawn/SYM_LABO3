@@ -16,20 +16,19 @@ import ch.heigvd.iict.sym.a3dcompassapp.R;
 public class CompassActivity extends AppCompatActivity implements SensorEventListener {
 
     //opengl
-    private OpenGLRenderer  opglr               = null;
-    private GLSurfaceView   m3DView             = null;
-    private SensorManager sensorManager         = null;
-    private Sensor accelerometer                = null;
-    private Sensor magnetometer                 = null;
+    private OpenGLRenderer  opglr;
+    private SensorManager sensorManager;
+    private Sensor accelerometer;
+    private Sensor magnetometer;
 
-    private float[] rotMatrix                   = new float[16];
-    private float[] gravity                     = new float[3];
-    private float[] geomagnetic                 = new float[3];
+    private float[] rotMatrix       = new float[16];
+    private float[] gravity         = new float[3];
+    private float[] geomagnetic     = new float[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Capteurs");
+        setTitle(getString(R.string.compass));
 
         // we need fullscreen
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -38,13 +37,13 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         setContentView(R.layout.activity_compass);
 
         // link to GUI
-        this.m3DView = findViewById(R.id.compass_opengl);
+        GLSurfaceView m3DView = findViewById(R.id.compass_opengl);
 
         //we create the 3D renderer
         this.opglr = new OpenGLRenderer(getApplicationContext());
 
         //init opengl surface view
-        this.m3DView.setRenderer(this.opglr);
+        m3DView.setRenderer(this.opglr);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
@@ -57,7 +56,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
     @Override
     protected void onPause() {
-        // unregister the sensor (désenregistrer le capteur)
+        // unregister the sensor
         sensorManager.unregisterListener(this, accelerometer);
         sensorManager.unregisterListener(this, magnetometer);
         super.onPause();
@@ -94,13 +93,4 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
-
-    /* TODO */
-    // your ch.heigvd.iict.sym.a3dcompassapp.activity need to register accelerometer and magnetometer sensors' updates
-    // then you may want to call
-    //  this.opglr.swapRotMatrix()
-    // with the 4x4 rotation matrix, everytime a new matrix is computed
-    // more information on rotation matrix can be found on-line:
-    // https://developer.android.com/reference/android/hardware/SensorManager.html#getRotationMatrix(float[],%20float[],%20float[],%20float[])
-
 }

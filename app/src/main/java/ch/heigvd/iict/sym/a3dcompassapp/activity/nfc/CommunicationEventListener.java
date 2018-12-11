@@ -15,5 +15,5 @@ public interface CommunicationEventListener {
      * @param response The response to process
      * @return true -> update ui ok, false -> update ui failed
      */
-    boolean handleServerResponse(Boolean response);
+    void handleServerResponse(Boolean response);
 }
