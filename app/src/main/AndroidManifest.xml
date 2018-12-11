@@ -20,7 +20,7 @@
         <activity android:windowSoftInputMode="adjustPan" android:name="ch.heigvd.iict.sym.a3dcompassapp.activity.barcode.BarcodeActivity" />
         <activity android:windowSoftInputMode="adjustPan" android:name="ch.heigvd.iict.sym.a3dcompassapp.activity.beacon.BeaconActivity" />
         <activity android:windowSoftInputMode="adjustPan" android:name="ch.heigvd.iict.sym.a3dcompassapp.activity.nfc.NFCActivity" />
-        <activity android:windowSoftInputMode="adjustPan" android:name="ch.heigvd.iict.sym.a3dcompassapp.activity.CountDownActivity" />
+        <activity android:windowSoftInputMode="adjustPan" android:name="ch.heigvd.iict.sym.a3dcompassapp.activity.nfc.CountDownActivity" />
         <activity android:windowSoftInputMode="adjustPan" android:name="ch.heigvd.iict.sym.a3dcompassapp.activity.nfc.NFCLoggedInActivity" />
         <activity android:windowSoftInputMode="adjustPan" android:name="ch.heigvd.iict.sym.a3dcompassapp.activity.compass.CompassActivity" />
     </application>

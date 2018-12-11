@@ -14,7 +14,7 @@ import ch.heigvd.iict.sym.a3dcompassapp.R;
 
 public class NFCLoggedInActivity extends AppCompatActivity {
 
-    Button securityMaxButton, securityMedButton, securityMinButton;
+    Button securityMinButton;
     TextView level, securityLevelLabel;
     CountDownTimer timer;
 
@@ -35,7 +35,6 @@ public class NFCLoggedInActivity extends AppCompatActivity {
         securityLevelLabel = (TextView) findViewById(R.id.time);
         securityLevelLabel.setText("Level de sécurité");
 
-        //TODO use NFC to read information
         nfcReader = new NFCReader();
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 

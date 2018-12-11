@@ -1,15 +1,11 @@
-package ch.heigvd.iict.sym.a3dcompassapp.activity;
+package ch.heigvd.iict.sym.a3dcompassapp.activity.nfc;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.util.zip.Inflater;
 
 import ch.heigvd.iict.sym.a3dcompassapp.R;
 
@@ -19,13 +15,11 @@ public class CountDownActivity extends AppCompatActivity {
     Button reset;
     CountDownTimer timer;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-        setTitle("Test CountDown");
-
+        setTitle("NFC - Security");
 
         time = (TextView) findViewById(R.id.time);
         time.setText("Ready");

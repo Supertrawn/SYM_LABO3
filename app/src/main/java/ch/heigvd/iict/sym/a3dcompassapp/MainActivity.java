@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
-import ch.heigvd.iict.sym.a3dcompassapp.activity.CountDownActivity;
 import ch.heigvd.iict.sym.a3dcompassapp.activity.barcode.BarcodeActivity;
 import ch.heigvd.iict.sym.a3dcompassapp.activity.beacon.BeaconActivity;
 import ch.heigvd.iict.sym.a3dcompassapp.activity.nfc.NFCActivity;
@@ -13,11 +12,10 @@ import ch.heigvd.iict.sym.a3dcompassapp.activity.compass.CompassActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnNFC;
-    Button btnBarcode;
-    Button btnBeacon;
-    Button btnCompass;
-    Button btnTest;
+    private Button btnNFC;
+    private Button btnBarcode;
+    private Button btnBeacon;
+    private Button btnCompass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +46,5 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(btnCompass.getContext(), CompassActivity.class);
             btnCompass.getContext().startActivity(intent);
         });
-
-        btnTest = findViewById(R.id.btnTest);
-        btnTest.setOnClickListener(v -> {
-            Intent intent = new Intent(btnTest.getContext(), CountDownActivity.class);
-            btnTest.getContext().startActivity(intent);
-        });
-
     }
-
-
 }
