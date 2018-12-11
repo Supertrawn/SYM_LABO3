@@ -6,15 +6,19 @@ import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 import ch.heigvd.iict.sym.a3dcompassapp.R;
 
 public class NFCLoggedInActivity extends AppCompatActivity {
-    TextView level, securityLevelLabel;
-    CountDownTimer timer;
+    private static final long INITIAL_TIME = 30000;
+    private static final long COUNT_DOWN_INTERVAL = 1000;
+
+    private TextView time, securityLevelLabel;
+    private CountDownTimer timer;
 
     private NfcAdapter nfcAdapter;
     private NFCReader nfcReader;
@@ -23,14 +27,12 @@ public class NFCLoggedInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logged_in_nfc);
-        setTitle("NFC");
+        setTitle(getString(R.string.nfc_security_zone));
 
-        int timerForSecurity;
-        
-        level = (TextView) findViewById(R.id.securityLevel);
+        securityLevelLabel = findViewById(R.id.securityLevel);
+        time = findViewById(R.id.time);
 
-        securityLevelLabel = (TextView) findViewById(R.id.time);
-        securityLevelLabel.setText("Level de sécurité");
+        securityLevelLabel.setText(getString(R.string.security_level));
 
         nfcReader = new NFCReader();
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
@@ -38,55 +40,50 @@ public class NFCLoggedInActivity extends AppCompatActivity {
         checkNfcAdapter();
 
         if(savedInstanceState != null){
-            timerForSecurity = savedInstanceState.getInt("AUTHENTICATE_MAX",0);
-            level.setText(timerForSecurity);
+            int timerForSecurity = savedInstanceState.getInt("AUTHENTICATE_MAX",0);
+            securityLevelLabel.setText(timerForSecurity);
         }
 
-        Long l = 30000l;
-
-        timer = new CountDownTimer(l, 1000) {
+        timer = new CountDownTimer(INITIAL_TIME, COUNT_DOWN_INTERVAL) {
             @Override
             public void onTick(long millis ) {
                 //Tester le temps
                 //Attribuer le niveau de sécurité
                 if(millis > 20000){
-                    securityLevelLabel.setText("Niveau de sécurité: MAX");
+                    displaySecurityLevel("MAX");
                 }
                 else if(millis > 10000){
-                    securityLevelLabel.setText("Niveau de sécurité: MOYEN");
+                    displaySecurityLevel("MEDIUM");
                 }else {
-                    securityLevelLabel.setText("Niveau de sécurité: MIN");
+                    displaySecurityLevel("MIN");
                 }
-                level.setText("seconds remaining:" + (millis  / 1000));
+                updateTime(millis  / COUNT_DOWN_INTERVAL);
             }
 
             @Override
             public void onFinish() {
-                level.setText("Done");
+                time.setText(getString(R.string.done));
             }
         }.start();
     }
 
-
-    private void cancelTimer(){
-        if(timer != null){
-            timer.cancel();
-        }
+    private void displaySecurityLevel(String level) {
+        securityLevelLabel.setText(String.format(getString(R.string.security_level)  + " : %s", level));
     }
 
-    private boolean checkNfcAdapter(){
+    private void updateTime(long time) {
+        this.time.setText(String.format(Locale.FRANCE, getString(R.string.seconds_remaining_time), time));
+    }
+
+    private void checkNfcAdapter(){
         if(nfcAdapter == null){
-            Toast.makeText(this, "NFC is not supported on this device.", Toast.LENGTH_LONG).show();;
+            Toast.makeText(this, getString(R.string.nfc_not_supported), Toast.LENGTH_LONG).show();
             finish();
-            return false;
         }
 
-        if(nfcAdapter.isEnabled()){
-            return true;
-        }else{
-            Toast.makeText(this, "Please check if NFC is activated", Toast.LENGTH_SHORT).show();;
+        if(!nfcAdapter.isEnabled()){
+            Toast.makeText(this, getString(R.string.check_nfc_activated), Toast.LENGTH_SHORT).show();
             finish();
-            return false;
         }
     }
 
@@ -101,7 +98,7 @@ public class NFCLoggedInActivity extends AppCompatActivity {
          * In our case this method gets called, when the user attaches a Tag to the device.
          */
         if(nfcReader.handleIntent(intent)){
-            Toast.makeText(this, "Niveau de sécurité augmenté", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.security_level_updated), Toast.LENGTH_SHORT).show();
             securityLevelLabel.setText("Niveau de sécurité: MAX");
             timer.cancel();
             timer.start();

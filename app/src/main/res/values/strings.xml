@@ -15,4 +15,8 @@
     <string name="ready">Ready</string>
     <string name="done">Done</string>
     <string name="seconds_remaining_time">Seconds remaining : %d</string>
+    <string name="nfc_not_supported">NFC is not supported on this device.</string>
+    <string name="check_nfc_activated">Please check if NFC is activated</string>
+    <string name="security_level">Security level</string>
+    <string name="security_level_updated">Security level updated</string>
 </resources>

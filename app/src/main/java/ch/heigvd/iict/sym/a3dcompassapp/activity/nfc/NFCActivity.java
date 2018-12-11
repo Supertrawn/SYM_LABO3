@@ -26,8 +26,7 @@ public class NFCActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc);
-        setTitle("NFC");
-
+        setTitle(getString(R.string.nfc));
 
         //initialize components
         loginEditText = findViewById(R.id.loginEditText);
@@ -44,7 +43,7 @@ public class NFCActivity extends AppCompatActivity {
             if(isAuthValid(loginEditText.getText().toString(), passwordEditText.getText().toString())) {
 
                 //Read NFC before starting new intent
-                Intent intent = new Intent(loginButton.getContext(),NFCLoggedInActivity.class);
+                Intent intent = new Intent(loginButton.getContext(), NFCLoggedInActivity.class);
                 intent.putExtra("AUTHENTICATE_MAX", Utils.AUTHENTICATE_MAX);
                 loginButton.getContext().startActivity(intent);
             }
@@ -64,19 +63,15 @@ public class NFCActivity extends AppCompatActivity {
     }
 
 
-    private boolean checkNfcAdapter(){
+    private void checkNfcAdapter(){
         if(nfcAdapter == null){
-            Toast.makeText(this, "NFC is not supported on this device.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.nfc_not_supported), Toast.LENGTH_LONG).show();
             finish();
-            return false;
         }
 
-        if(nfcAdapter.isEnabled()){
-            return true;
-        }else{
-            Toast.makeText(this, "Please check if NFC is activated", Toast.LENGTH_SHORT).show();
+        if(!nfcAdapter.isEnabled()){
+            Toast.makeText(this, getString(R.string.check_nfc_activated), Toast.LENGTH_SHORT).show();
             finish();
-            return false;
         }
     }
 
