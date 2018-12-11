@@ -10,6 +10,17 @@ import java.util.Locale;
 
 import ch.heigvd.iict.sym.a3dcompassapp.R;
 
+/**
+ * @Class       : NfcLoggedInActivity
+ * @Author(s)   : Michael Brouchoud, Thomas Lechaire & Kevin Pradervand
+ * @Date        : 11.12.2018
+ *
+ * @Goal        : Nfc Logged In Activity
+ *
+ * @Comment(s)  : -
+ *
+ * @See         : NfcReaderActivity
+ */
 public class NfcLoggedInActivity extends NfcReaderActivity {
     private static final long COUNT_DOWN_INTERVAL = 1000;
 
@@ -52,18 +63,28 @@ public class NfcLoggedInActivity extends NfcReaderActivity {
         }.start();
     }
 
+    /**
+     * @bried Display the corresponding level
+     * @param level The level to display
+     */
     private void displaySecurityLevel(String level) {
         securityLevelLabel.setText(String.format(getString(R.string.security_level)  + " %s", level));
     }
 
+    /**
+     * @brief Update the time
+     * @param time The time
+     */
     private void updateTime(long time) {
         this.time.setText(String.format(Locale.FRANCE, getString(R.string.seconds_remaining_time) + " : %d", time));
     }
 
+    /**
+     * @brief Display the max level authorisation
+     */
     private void setMaxAuthorizationLevel() {
         displaySecurityLevel(AuthorizationLevel.AUTHENTICATE_MAX.toString());
     }
-
 
     @Override
     protected void onNewIntent(Intent intent) {

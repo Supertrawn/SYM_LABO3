@@ -13,6 +13,17 @@ import android.view.WindowManager;
 
 import ch.heigvd.iict.sym.a3dcompassapp.R;
 
+/**
+ * @Class       : CompassActivity
+ * @Author(s)   : Michael Brouchoud, Thomas Lechaire & Kevin Pradervand
+ * @Date        : 11.12.2018
+ *
+ * @Goal        : Compass Activity
+ *
+ * @Comment(s)  : -
+ *
+ * @See         : AppCompatActivity, SensorEventListener
+ */
 public class CompassActivity extends AppCompatActivity implements SensorEventListener {
 
     //opengl
@@ -32,7 +43,10 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
         // we need fullscreen
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+        );
 
         setContentView(R.layout.activity_compass);
 
@@ -47,10 +61,12 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        if(sensorManager != null) {
+            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+            }
         }
     }
 
@@ -91,6 +107,6 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
+        // Do nothing
     }
 }

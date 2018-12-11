@@ -1,19 +1,18 @@
 package ch.heigvd.iict.sym.a3dcompassapp.activity.nfc;
 
 /**
- * @Class       : CommunicationEventListener
+ * @Interface   : CommunicationEventListener
  * @Author(s)   : Michael Brouchoud, Thomas Lechaire & Kevin Pradervand
- * @Date        : 16.11.2018
+ * @Date        : 11.12.2018
  *
- * @Goal        : Listen the event to process the response received from the server
+ * @Goal        : Listen the event to process the response
  *
  * @Comment(s)  : -
  */
 public interface CommunicationEventListener {
     /**
-     * @brief Process the response to display it to the user interface
+     * @brief Process the response
      * @param response The response to process
-     * @return true -> update ui ok, false -> update ui failed
      */
-    void handleServerResponse(Boolean response);
+    void handleResponse(Boolean response);
 }

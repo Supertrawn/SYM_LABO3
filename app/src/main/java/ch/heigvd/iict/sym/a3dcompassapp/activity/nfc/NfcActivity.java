@@ -8,6 +8,17 @@ import android.widget.Toast;
 
 import ch.heigvd.iict.sym.a3dcompassapp.R;
 
+/**
+ * @Class       : NfcActivity
+ * @Author(s)   : Michael Brouchoud, Thomas Lechaire & Kevin Pradervand
+ * @Date        : 11.12.2018
+ *
+ * @Goal        : Nfc Activity
+ *
+ * @Comment(s)  : -
+ *
+ * @See         : NfcReaderActivity
+ */
 public class NfcActivity extends NfcReaderActivity {
     private EditText loginEditText, passwordEditText;
     private Button loginButton;
@@ -52,6 +63,12 @@ public class NfcActivity extends NfcReaderActivity {
         loginButton.setEnabled(getNfcReader().handleIntent(intent));
     }
 
+    /**
+     * @brief Check if the credentials are valid
+     * @param login The login
+     * @param password The password
+     * @return true -> credentials ok, false credentials ko
+     */
     private boolean isAuthValid(String login, String password) {
         return login.equals(validLogin) && password.equals(validPassword);
     }

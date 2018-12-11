@@ -9,6 +9,13 @@ Dans ce laboratoire, il est demandé d'implémenter la prise en considération d
 - Lecture de Balise iBeacon
 - Utilisation des capteurs de l'appareil
 
+## Utilisation NFC
+Le bouton login est grisé par défaut, il faut l'activer une fois via NFC pour l'activer.
+Login : heig
+Mot de passe : sym2018
+
+Une fois la zone sécurisée atteinte, il est possible d'augmenter le timer et le niveau de sécurité via le NFC.
+
 ## Questions
 ### 2.4 Balise NFC
 Dans la manipulation ci-dessus, les tags NFC utilisés contiennent 4 valeurs textuelles codées en UTF-8 dans un format de message NDEF. 

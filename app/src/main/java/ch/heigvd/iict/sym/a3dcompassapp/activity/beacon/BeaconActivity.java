@@ -3,7 +3,6 @@ package ch.heigvd.iict.sym.a3dcompassapp.activity.beacon;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -24,10 +23,21 @@ import java.util.List;
 
 import ch.heigvd.iict.sym.a3dcompassapp.R;
 
+/**
+ * @Class       : BeaconActivity
+ * @Author(s)   : Michael Brouchoud, Thomas Lechaire & Kevin Pradervand
+ * @Date        : 11.12.2018
+ *
+ * @Goal        : Beacon Activity
+ *
+ * @Comment(s)  : -
+ *
+ * @See         : AppCompatActivity, BeaconConsumer
+ */
 public class BeaconActivity extends AppCompatActivity implements BeaconConsumer {
     private BeaconManager beaconManager;
     private List<Beacon> beacons;
-    private BeaconListViewAdaptater adapter;
+    private BeaconListViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +50,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
 
         beacons = new ArrayList<>();
 
-        adapter = new BeaconListViewAdaptater(BeaconActivity.this, beacons);
+        adapter = new BeaconListViewAdapter(BeaconActivity.this, beacons);
         beaconListView.setEmptyView(empty);
         beaconListView.setAdapter(adapter);
         beaconListView.deferNotifyDataSetChanged();
@@ -68,20 +78,33 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
         });
 
         try {
-            beaconManager.startRangingBeaconsInRegion(new Region("myRangingUniqueId", null, null, null));
+            beaconManager.startRangingBeaconsInRegion(
+                    new Region("myRangingUniqueId", null, null, null)
+            );
         } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
 
-    private class BeaconListViewAdaptater extends ArrayAdapter<Beacon> {
+    /**
+     * @Class       : BeaconListViewAdapter
+     * @Author(s)   : Michael Brouchoud, Thomas Lechaire & Kevin Pradervand
+     * @Date        : 11.12.2018
+     *
+     * @Goal        : BeaconList View Adaptater
+     *
+     * @Comment(s)  : -
+     *
+     * @See         : ArrayAdapter
+     */
+    private class BeaconListViewAdapter extends ArrayAdapter<Beacon> {
         private class BeaconViewHolder{
             public TextView rssi;
             public TextView minNumber;
             public TextView majNumber;
         }
 
-        BeaconListViewAdaptater(Context context, List<Beacon> beacons) {
+        BeaconListViewAdapter(Context context, List<Beacon> beacons) {
             super(context, 0, beacons);
         }
 
@@ -89,7 +112,8 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
         public View getView(int position, View convertView, @Nullable ViewGroup parent) {
 
             if(convertView == null){
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_beacon,parent, false);
+                convertView = LayoutInflater.from(getContext())
+                        .inflate(R.layout.list_item_beacon,parent, false);
             }
 
             BeaconViewHolder viewHolder = (BeaconViewHolder) convertView.getTag();
@@ -101,14 +125,21 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
                 convertView.setTag(viewHolder);
             }
 
-            //getItem(position) va récupérer l'item [position] de la List<Tweet> tweets
             Beacon beacon = getItem(position);
 
-            //il ne reste plus qu'à remplir notre vue
             if(beacon != null) {
-                viewHolder.rssi.setText(String.format(getString(R.string.rssi) + " : %s", beacon.getRssi()));
-                viewHolder.minNumber.setText(String.format(getString(R.string.min_number) + " : %s", beacon.getBeaconTypeCode()));
-                viewHolder.majNumber.setText(String.format(getString(R.string.max_number) + " : %s", beacon.getBluetoothName()));
+                viewHolder.rssi.setText(
+                        String.format(getString(R.string.rssi) + " : %s",
+                                beacon.getRssi())
+                );
+                viewHolder.minNumber.setText(
+                        String.format(getString(R.string.min_number) + " : %s",
+                                beacon.getBeaconTypeCode())
+                );
+                viewHolder.majNumber.setText(
+                        String.format(getString(R.string.max_number) + " : %s",
+                                beacon.getBluetoothName())
+                );
             }
 
             return convertView;

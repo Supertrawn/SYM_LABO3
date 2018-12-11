@@ -7,10 +7,24 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.util.Log;
 
+/**
+ * @Class       : NfcReader
+ * @Author(s)   : Michael Brouchoud, Thomas Lechaire & Kevin Pradervand
+ * @Date        : 11.12.2018
+ *
+ * @Goal        : Nfc Reader
+ *
+ * @Comment(s)  : -
+ */
 class NfcReader {
     private static final String MIME_TEXT_PLAIN = "text/plain";
     private boolean response;
 
+    /**
+     * @biref Read the a NFC info
+     * @param intent The intent to read the nfc
+     * @return true -> has read the nfc, false -> error when read the nfc
+     */
     boolean handleIntent(Intent intent) {
         String action = intent.getAction();
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
@@ -29,6 +43,11 @@ class NfcReader {
         return response;
     }
 
+    /**
+     * @brief Setup the tools to read a NFC
+     * @param nfcReaderActivity A NFC reader activity
+     * @param nfcAdapter A NFC adapter
+     */
     void setupForegroundDispatch(NfcReaderActivity nfcReaderActivity, NfcAdapter nfcAdapter) {
         final Intent intent = new Intent(nfcReaderActivity.getApplicationContext(), nfcReaderActivity.getClass());
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -51,6 +70,11 @@ class NfcReader {
 
     }
 
+    /**
+     * @brief Release the tools to read NFC
+     * @param nfcReaderActivity A NFC reader activity
+     * @param nfcAdapter A NFC adapter
+     */
     void stopForeGroundDispatch(NfcReaderActivity nfcReaderActivity, NfcAdapter nfcAdapter) {
         nfcAdapter.disableForegroundDispatch(nfcReaderActivity);
     }

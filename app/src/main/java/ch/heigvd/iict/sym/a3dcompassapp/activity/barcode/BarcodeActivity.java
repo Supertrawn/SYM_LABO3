@@ -10,6 +10,17 @@ import com.google.zxing.integration.android.IntentResult;
 
 import ch.heigvd.iict.sym.a3dcompassapp.R;
 
+/**
+ * @Class       : BarcodeActivity
+ * @Author(s)   : Michael Brouchoud, Thomas Lechaire & Kevin Pradervand
+ * @Date        : 11.12.2018
+ *
+ * @Goal        : Barcode Activity
+ *
+ * @Comment(s)  : -
+ *
+ * @See         : AppCompatActivity
+ */
 public class BarcodeActivity extends AppCompatActivity {
     private IntentIntegrator integrator;
 
@@ -27,6 +38,9 @@ public class BarcodeActivity extends AppCompatActivity {
         startScanner();
     }
 
+    /**
+     * @brief Start the qr code scanner
+     */
     private void startScanner() {
         integrator.initiateScan();
     }

@@ -10,6 +10,17 @@ import ch.heigvd.iict.sym.a3dcompassapp.activity.beacon.BeaconActivity;
 import ch.heigvd.iict.sym.a3dcompassapp.activity.nfc.NfcActivity;
 import ch.heigvd.iict.sym.a3dcompassapp.activity.compass.CompassActivity;
 
+/**
+ * @Class       : MainActivity
+ * @Author(s)   : Michael Brouchoud, Thomas Lechaire & Kevin Pradervand
+ * @Date        : 11.12.2018
+ *
+ * @Goal        : Main Activity
+ *
+ * @Comment(s)  : -
+ *
+ * @See         : AppCompatActivity
+ */
 public class MainActivity extends AppCompatActivity {
 
     private Button btnNFC;

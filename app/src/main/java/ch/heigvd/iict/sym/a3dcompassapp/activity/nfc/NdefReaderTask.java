@@ -8,6 +8,17 @@ import android.os.AsyncTask;
 
 import java.util.Arrays;
 
+/**
+ * @Class       : NdefReaderTask
+ * @Author(s)   : Michael Brouchoud, Thomas Lechaire & Kevin Pradervand
+ * @Date        : 11.12.2018
+ *
+ * @Goal        : Ndef Reader Task
+ *
+ * @Comment(s)  : -
+ *
+ * @See         : AsyncTask
+ */
 public class NdefReaderTask extends AsyncTask<Tag, Void, Boolean> {
     private CommunicationEventListener listener;
 
@@ -17,7 +28,6 @@ public class NdefReaderTask extends AsyncTask<Tag, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(Tag... params) {
-        // TODO a voir ce qui passe la dedans, il faut uniquement valider la lecture du NFC, pas le contenu
         if(params.length > 0) {
             Tag tag = params[0];
 
@@ -43,9 +53,9 @@ public class NdefReaderTask extends AsyncTask<Tag, Void, Boolean> {
     @Override
     protected void onPostExecute(Boolean result) {
         if (result != null) {
-            listener.handleServerResponse(result);
+            listener.handleResponse(result);
         } else {
-            listener.handleServerResponse(false);
+            listener.handleResponse(false);
         }
     }
 }

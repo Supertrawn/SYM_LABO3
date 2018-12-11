@@ -2,6 +2,17 @@ package ch.heigvd.iict.sym.a3dcompassapp.activity.nfc;
 
 import java.io.Serializable;
 
+/**
+ * @Enum        : AuthorizationLevel
+ * @Author(s)   : Michael Brouchoud, Thomas Lechaire & Kevin Pradervand
+ * @Date        : 11.12.2018
+ *
+ * @Goal        : Authorization Level Enum
+ *
+ * @Comment(s)  : -
+ *
+ * @See         : Serializable
+ */
 public enum AuthorizationLevel implements Serializable {
     AUTHENTICATE_MAX(10, "MAX", 20000),
     AUTHENTICATE_MEDIUM(5, "MEDIUM", 10000),
@@ -19,10 +30,18 @@ public enum AuthorizationLevel implements Serializable {
         this.msLevel = msLevel;
     }
 
+    /**
+     * @brief get the level
+     * @return The level
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     * @brief get the name
+     * @return The name
+     */
     public String getName() {
         return name;
     }
@@ -32,6 +51,10 @@ public enum AuthorizationLevel implements Serializable {
         return this.getName() + " : " + getLevel();
     }
 
+    /**
+     * @brief get the milliseconds level
+     * @return The milliseconds level
+     */
     public long getMsLevel() {
         return msLevel;
     }
