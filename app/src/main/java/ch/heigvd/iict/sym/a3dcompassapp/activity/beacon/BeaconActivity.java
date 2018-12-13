@@ -16,9 +16,11 @@ import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
+import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import ch.heigvd.iict.sym.a3dcompassapp.R;
@@ -35,9 +37,9 @@ import ch.heigvd.iict.sym.a3dcompassapp.R;
  * @See         : AppCompatActivity, BeaconConsumer
  */
 public class BeaconActivity extends AppCompatActivity implements BeaconConsumer {
-    private BeaconManager beaconManager;
-    private List<Beacon> beacons;
-    private BeaconListViewAdapter adapter;
+    private BeaconManager beaconManager = null;
+    private List<Beacon> beacons = null;
+    private BeaconListViewAdapter adapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +71,14 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
     }
     @Override
     public void onBeaconServiceConnect() {
-        beaconManager.addRangeNotifier((collection, region) -> {
-            if(collection.size() > 0){
-                beacons.clear();
-                beacons.addAll(collection);
-                adapter.notifyDataSetChanged();
+        beaconManager.addRangeNotifier(new RangeNotifier() {
+            @Override
+            public void didRangeBeaconsInRegion(Collection<Beacon> collection, Region region) {
+                if (collection.size() > 0){
+                    beacons.clear();
+                    beacons.addAll(collection);
+                    adapter.notifyDataSetChanged();
+                }
             }
         });
 
