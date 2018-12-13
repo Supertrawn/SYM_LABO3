@@ -36,7 +36,9 @@ Une personne malveillante ayant accès au porte-clés peut aisément copier les 
 - Voyez-vous d’autres possibilités ?
 
 ```
+https://security.stackexchange.com/questions/63483/how-do-nfc-tags-prevent-copying
 
+https://www.quora.com/Is-it-possible-to-prevent-cloning-of-an-NFC-tag-by-using-keys-with-the-PhoneGap-NFC-plug-in
 ```
 
 ### 3.2 Code Barre
